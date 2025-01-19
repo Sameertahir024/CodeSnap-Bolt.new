@@ -10,7 +10,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Pricing />
-      {/* <MarqueeDemoVertical /> */}
+      <MarqueeDemoVertical />
       <Footer />
     </div>
   );

@@ -5,6 +5,7 @@ import { ShinyButton } from "../ui/shiny-button";
 import DotPattern from "../ui/dot-pattern";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import HeroVideoDialog from "../ui/hero-video-dialog";
 
 export default function Hero() {
   return (
@@ -31,11 +32,13 @@ export default function Hero() {
           Designed for innovators, built for the future.
         </p>
         <div
-          className="mb-10 mt-8 flex w-full flex-col items-center justify-center gap-4
+          className="mb-3 mt-8 flex w-full flex-col items-center justify-center gap-4
         px-8 sm:flex-row md:mb-20"
         >
-         <Link href="/chat">  
-         <Button size="lg" className="text-sm px-8">Get Started</Button>
+          <Link href="/chat">
+            <Button size="lg" className="text-sm px-8">
+              Get Started
+            </Button>
           </Link>
 
           <ShinyButton className="text-sm px-8">
@@ -56,16 +59,24 @@ export default function Hero() {
           )}
         />
       </div>
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center px-4 md:px-8">
         <div className="p-1 bg-white rounded-lg">
-          <Image
-            src="/main.png"
-            alt="Hero Image"
-            width={1080}
-            height={720}
-            className="object-cover"
-            priority
-          />
+          <div className="relative">
+            <HeroVideoDialog
+              className="dark:hidden block"
+              animationStyle="from-center"
+              videoSrc="https://www.youtube.com/embed/qh3NGpYRG3I?si=4rb-zSdDkVK9qxxb"
+              thumbnailSrc="https://startup-template-sage.vercel.app/hero-light.png"
+              thumbnailAlt="Hero Video"
+            />
+            <HeroVideoDialog
+              className="hidden dark:block"
+              animationStyle="from-center"
+              videoSrc="https://www.youtube.com/embed/qh3NGpYRG3I?si=4rb-zSdDkVK9qxxb"
+              thumbnailSrc="https://startup-template-sage.vercel.app/hero-dark.png"
+              thumbnailAlt="Hero Video"
+            />
+          </div>
         </div>
       </div>
       {/*  */}

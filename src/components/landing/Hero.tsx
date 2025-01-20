@@ -2,6 +2,8 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Github } from "lucide-react";
 import { ShinyButton } from "../ui/shiny-button";
+import DotPattern from "../ui/dot-pattern";
+import { cn } from "@/lib/utils";
 
 export default function Hero() {
   return (
@@ -38,6 +40,16 @@ export default function Hero() {
             </span>
           </ShinyButton>
         </div>
+        <DotPattern
+          width={22}
+          height={16}
+          cx={1}
+          cy={1}
+          cr={1.5}
+          className={cn(
+            "[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] "
+          )}
+        />
       </div>
       <div className="flex justify-center items-center">
         <div className="p-1 bg-white rounded-lg">
@@ -51,10 +63,7 @@ export default function Hero() {
           />
         </div>
       </div>
-      <div
-        className="absolute inset-0 bg-grid-white/10 bg-[size:40px_40px] [mask-image:radial-gradient(white,transparent_85%)] pointer-events-none"
-        aria-hidden="true"
-      ></div>
+      {/*  */}
     </section>
   );
 }

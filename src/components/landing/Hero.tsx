@@ -4,14 +4,18 @@ import { Github } from "lucide-react";
 import { ShinyButton } from "../ui/shiny-button";
 import DotPattern from "../ui/dot-pattern";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export default function Hero() {
   return (
     <section className=" ">
       <div
-        className="relative flex min-h-screen flex-col items-center justify-center
+        className="relative flex min-h-screen flex-col items-center  justify-center
         overflow-hidden px-4 py-20 md:px-8 md:py-40  "
       >
+        <p className="relative z-20 mx-auto mt-4 max-w-lg text-center text-xs">
+          Introducing CodeSnap – a game-changer by Sameer Tahir!
+        </p>
         <h1
           className="text-balance relative z-20 mx-auto mb-4 mt-4 max-w-4xl
         text-center text-3xl font-semibold tracking-tight 
@@ -30,9 +34,10 @@ export default function Hero() {
           className="mb-10 mt-8 flex w-full flex-col items-center justify-center gap-4
         px-8 sm:flex-row md:mb-20"
         >
-          <Button size="lg" className="text-sm px-8">
-            Get Started
-          </Button>
+         <Link href="/chat">  
+         <Button size="lg" className="text-sm px-8">Get Started</Button>
+          </Link>
+
           <ShinyButton className="text-sm px-8">
             <span className="flex items-center gap-1">
               <Github />

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Github } from "lucide-react";
 import { ShinyButton } from "../ui/shiny-button";
@@ -6,6 +5,7 @@ import DotPattern from "../ui/dot-pattern";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import HeroVideoDialog from "../ui/hero-video-dialog";
+import { Companies } from "./Companies";
 
 export default function Hero() {
   return (
@@ -35,7 +35,7 @@ export default function Hero() {
           className="mb-3 mt-8 flex w-full flex-col items-center justify-center gap-4
         px-8 sm:flex-row md:mb-20"
         >
-          <Link href="/chat">
+          <Link href="/dashboard">
             <Button size="lg" className="text-sm px-8">
               Get Started
             </Button>
@@ -58,6 +58,7 @@ export default function Hero() {
             "[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] "
           )}
         />
+        <Companies />
       </div>
       <div className="flex justify-center items-center px-4 md:px-8">
         <div className="p-1 bg-white rounded-lg">

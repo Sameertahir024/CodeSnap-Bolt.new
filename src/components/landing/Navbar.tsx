@@ -10,14 +10,14 @@ import { LayoutGrid } from "lucide-react";
 
 const Navbar = () => {
   let userId = null;
+  const user = useAuth();
   if (config?.auth?.enabled) {
-    const user = useAuth();
     userId = user?.userId;
   }
   return (
     <div className="flex items-center min-w-full fixed justify-between p-2 border-b z-10 dark:bg-black  bg-white">
       <LayoutGrid />
-      <div className="flex items-center gap-2 max-[825px]:hidden">
+      <div className="flex items-center gap-2">
         <ToggleMenu />
         {userId ? (
           <UserButton />

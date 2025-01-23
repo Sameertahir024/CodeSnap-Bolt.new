@@ -4,40 +4,34 @@ import Marquee from "../ui/marquee";
 
 const reviews = [
   {
-    name: "Jack",
-    username: "@jack",
-    body: "I've never seen anything like this before. It's amazing. I love it.",
-    img: "https://avatar.vercel.sh/jack",
+    id: 1,
+    img: "/companies/croped.png",
+  },
+
+  {
+    id: 5,
+    img: "/companies/tiny.png",
   },
   {
-    name: "Jill",
-    username: "@jill",
-    body: "I don't know what to say. I'm speechless. This is amazing.",
-    img: "https://avatar.vercel.sh/jill",
+    id: 6,
+    img: "/companies/onw.png",
+  },
+
+  {
+    id: 9,
+    img: "/companies/OnlyFans.png",
   },
   {
-    name: "John",
-    username: "@john",
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: "https://avatar.vercel.sh/john",
+    id: 10,
+    img: "/companies/Zomato.png",
   },
   {
-    name: "Jane",
-    username: "@jane",
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: "https://avatar.vercel.sh/jane",
+    id: 2,
+    img: "/companies/ford.png",
   },
   {
-    name: "Jenny",
-    username: "@jenny",
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: "https://avatar.vercel.sh/jenny",
-  },
-  {
-    name: "James",
-    username: "@james",
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: "https://avatar.vercel.sh/james",
+    id: 3,
+    img: "/companies/google.png",
   },
 ];
 
@@ -45,16 +39,14 @@ const ReviewCard = ({ img }: { img: string }) => {
   return (
     <figure
       className={cn(
-        "relative w-64 cursor-pointer overflow-hidden rounded-xl  p-4",
-     
-    
+        "relative w-64 cursor-pointer overflow-hidden rounded-xl  p-4"
       )}
     >
-      <div className="flex flex-row items-center gap-2">
+      <div className="flex flex-row  items-center gap-2">
         <Image
           className="rounded-full"
-          width="32"
-          height="32"
+          width="90"
+          height="50"
           alt=""
           src={img}
         />
@@ -68,7 +60,7 @@ export function Companies() {
     <div className="relative flex  w-full flex-col items-center justify-center overflow-hidden ">
       <Marquee pauseOnHover className="[--duration:20s]">
         {reviews.map((review) => (
-          <ReviewCard key={review.username} {...review} />
+          <ReviewCard key={review.id} img={review.img} />
         ))}
       </Marquee>
 

@@ -70,7 +70,7 @@ export default function Hero() {
       </div>
 
       <div className="flex justify-center items-center px-4 md:px-16">
-        <div className="p-1 bg-white rounded-lg shadow-[0px_0px_40px_10px_rgba(0,0,0,0.8)] dark:shadow-[0px_0px_50px_15px_rgba(255,255,255,0.8)]">
+        <div className="p-1 bg-white rounded-lg  shadow-[0px_0px_20px_5px_rgba(0,0,0,0.5)] dark:shadow-[0px_0px_30px_10px_rgba(255,255,255,0.4)]">
           <div className="relative">
             <HeroVideoDialog
               className="dark:hidden block"

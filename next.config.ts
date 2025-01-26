@@ -1,10 +1,19 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "standalone", // Instead of 'export'
-
   images: {
-    domains: ["avatar.vercel.sh"], // Allow external images from this domain
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "avatar.vercel.sh",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "startup-template-sage.vercel.app",
+        pathname: "/**",
+      },
+    ],
   },
 };
 

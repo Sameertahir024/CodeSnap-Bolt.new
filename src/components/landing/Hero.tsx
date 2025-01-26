@@ -1,30 +1,21 @@
 import { Button } from "@/components/ui/button";
-import { Github, ArrowRightIcon } from "lucide-react";
+import { Github } from "lucide-react";
 import { ShinyButton } from "../ui/shiny-button";
 import DotPattern from "../ui/dot-pattern";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import HeroVideoDialog from "../ui/hero-video-dialog";
 import { Companies } from "./Companies";
-import { AnimatedShinyText } from "../ui/animated-shiny-text";
+import DeveloperButton from "./DeveloperButton";
 
 export default function Hero() {
   return (
     <section className=" ">
       <div
-        className="relative flex min-h-screen flex-col items-center  justify-center
+        className=" w-full max-w-[1400px] mx-auto  flex min-h-screen flex-col items-center  justify-center
         overflow-hidden px-4 py-20 md:px-8 md:py-40  "
       >
-        <div className="flex items-center max-w-lg text-center gap-1 ">
-          <div className=" rounded-full  bg-white text-xs text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200  dark:bg-black dark:hover:bg-neutral-800">
-            <AnimatedShinyText className="inline-flex text-xs items-center justify-center p-1  transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-300">
-              <span>
-                🎉Introducing CodeSnap – a game-changer by Sameer Tahir
-              </span>
-              <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
-            </AnimatedShinyText>
-          </div>
-        </div>
+        <DeveloperButton />
         <h1
           className="text-balance relative z-20 mx-auto mb-4 mt-4 max-w-4xl
         text-center text-3xl font-semibold tracking-tight 

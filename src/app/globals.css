@@ -8,6 +8,10 @@ body {
 .text-clap {
   font-size: clamp(3rem, 12vw, 12rem);
 }
+.containers{
+  width: 1400px;
+  
+}
 
 @layer base {
   :root {

@@ -15,19 +15,21 @@ const Navbar = () => {
     userId = user?.userId;
   }
   return (
-    <div className="flex items-center min-w-full fixed justify-between p-2 border-b z-10 dark:bg-black  bg-white">
-      <LayoutGrid />
-      <div className="flex items-center gap-2">
-        <ToggleMenu />
-        {userId ? (
-          <UserButton />
-        ) : (
-          <Link href="/sign-up">
-            <Button size="lg" className="text-sm px-8">
-              Sign Up
-            </Button>
-          </Link>
-        )}
+    <div className=" ">
+      <div className="w-full flex items-center fixed justify-between p-2 border-b z-10 dark:bg-black  bg-white">
+        <LayoutGrid />
+        <div className="flex items-center gap-2">
+          <ToggleMenu />
+          {userId ? (
+            <UserButton />
+          ) : (
+            <Link href="/sign-up">
+              <Button size="lg" className="text-sm px-8">
+                Sign Up
+              </Button>
+            </Link>
+          )}
+        </div>
       </div>
     </div>
   );

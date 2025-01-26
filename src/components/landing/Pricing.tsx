@@ -41,7 +41,7 @@ export default function PricingSection() {
   ];
 
   return (
-    <section className="py-16 px-4 ">
+    <section className=" px-4 my-32">
       <div className="container mx-auto">
         <div className="text-center space-y-1 mb-11">
           <h2 className="text-3xl font-bold ">
@@ -53,7 +53,7 @@ export default function PricingSection() {
             and more flexibility.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-32">
           {pricingPlans.map((plan, index) => (
             <PricingCard key={index} {...plan} />
           ))}

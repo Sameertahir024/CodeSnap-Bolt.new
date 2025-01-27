@@ -44,7 +44,7 @@ const ReviewCard = ({ img }: { img: string }) => {
     >
       <div className="flex flex-row  items-center gap-2">
         <Image
-          className="rounded-full grayscale brightness-100 hover:grayscale-0 w-auto h-auto"
+          className="rounded-full grayscale brightness-100 hover:grayscale-0 "
           width={90}
           height={50}
           alt=""

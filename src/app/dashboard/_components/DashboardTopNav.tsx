@@ -25,13 +25,13 @@ export default function DashboardTopNav({ children }: { children: ReactNode }) {
           <SheetTrigger className="min-[1024px]:hidden p-2 transition">
             <Menu />
             <Link href="/dashboard">
-              <span className="sr-only">Home</span>
+              <span className="sr-only">Overview</span>
             </Link>
           </SheetTrigger>
           <SheetContent side="left">
             <SheetHeader>
               <Link href="/">
-                <SheetTitle>Health</SheetTitle>
+                <SheetTitle> codeSnap</SheetTitle>
               </Link>
             </SheetHeader>
             <div className="flex flex-col space-y-3 mt-[1rem]">
@@ -39,7 +39,7 @@ export default function DashboardTopNav({ children }: { children: ReactNode }) {
                 <Link href="/dashboard">
                   <Button variant="outline" className="w-full">
                     <HomeIcon className="mr-2 h-4 w-4" />
-                    Home
+                    Overview
                   </Button>
                 </Link>
               </DialogClose>
@@ -73,8 +73,7 @@ export default function DashboardTopNav({ children }: { children: ReactNode }) {
         </Dialog>
         <div className="flex justify-center items-center gap-2 ml-auto">
           <ToggleMenu />
-                    <UserButton />
-
+          <UserButton />
         </div>
       </header>
       {children}

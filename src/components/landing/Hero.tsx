@@ -40,12 +40,17 @@ export default function Hero() {
             </Button>
           </Link>
 
-          <ShinyButton className="text-sm px-8">
-            <span className="flex items-center gap-1">
-              <Github />
-              GitHub
-            </span>
-          </ShinyButton>
+          <Link href="https://github.com/Sameertahir024/CodeSnap-Bolt.new" passHref>
+            <ShinyButton className="text-sm px-8">
+              <a
+                target="blank"
+                className="flex items-center gap-1"
+              >
+                <Github />
+                GitHub
+              </a>
+            </ShinyButton>
+          </Link>
         </div>
         <DotPattern
           width={22}

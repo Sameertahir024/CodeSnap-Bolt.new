@@ -2,19 +2,18 @@
 
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/browserClient";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Eye, EyeOff, Mail, Lock, Github, User } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, Github, User, ArrowLeft } from "lucide-react";
 import { useTheme } from "next-themes";
 
 export default function SignUpPage() {
   const supabase = createClient();
   const router = useRouter();
   const { theme } = useTheme();
-  const [mounted, setMounted] = useState(false);
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -22,10 +21,6 @@ export default function SignUpPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const handleSignUp = async () => {
     if (!username || !email || !password) {
@@ -63,58 +58,54 @@ export default function SignUpPage() {
   };
 
   const getBackgroundClass = () => {
-    if (!mounted) {
-      return "min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center p-4";
-    }
     return `min-h-screen bg-gradient-to-br flex items-center justify-center p-4 ${
-      theme === 'dark' 
-        ? 'from-slate-900 via-blue-900 to-indigo-900' 
-        : 'from-slate-50 via-blue-50 to-indigo-100'
+      theme === 'dark'
+        ? 'from-neutral-950 via-slate-950 to-neutral-900'
+        : 'from-neutral-100 via-slate-100 to-neutral-200'
     }`;
   };
 
   const getCardClass = () => {
-    if (!mounted) {
-      return "shadow-2xl border-0 bg-white/80 backdrop-blur-sm";
-    }
     return `shadow-2xl border-0 backdrop-blur-sm ${
-      theme === 'dark' 
-        ? 'bg-slate-800/80 border-slate-700' 
-        : 'bg-white/80'
+      theme === 'dark'
+        ? 'bg-neutral-900/80 border-neutral-800'
+        : 'bg-neutral-100/80'
     }`;
   };
 
   const getInputClass = () => {
-    if (!mounted) {
-      return "pl-10";
-    }
     return `pl-10 ${
-      theme === 'dark' 
-        ? 'bg-slate-700 border-slate-600 text-white placeholder:text-gray-400' 
-        : ''
+      theme === 'dark'
+        ? 'bg-neutral-800 border-neutral-700 text-white placeholder:text-gray-400'
+        : 'bg-neutral-200 border-neutral-300'
     }`;
   };
 
   const getButtonClass = () => {
-    if (!mounted) {
-      return "w-full";
-    }
     return `w-full ${
-      theme === 'dark' 
-        ? 'border-slate-600 text-white hover:bg-slate-700' 
-        : ''
+      theme === 'dark'
+        ? 'border-neutral-700 text-white hover:bg-neutral-800'
+        : 'border-neutral-300 bg-neutral-200 hover:bg-neutral-300'
     }`;
   };
 
   return (
     <div className={getBackgroundClass()}>
-      <div className="w-full max-w-md">
+      <button
+        type="button"
+        onClick={() => router.push("/")}
+        className="fixed top-6 left-6 z-50 flex items-center gap-2 text-neutral-700 dark:text-neutral-200 hover:underline hover:text-neutral-900 dark:hover:text-white transition-colors bg-neutral-100/80 dark:bg-neutral-900/80 px-3 py-1.5 rounded-md shadow"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        Go Back
+      </button>
+      <div className="w-full max-w-md mx-auto">
         <Card className={getCardClass()}>
           <CardHeader className="space-y-1 text-center">
-            <CardTitle className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            <CardTitle className="text-2xl font-bold bg-gradient-to-r from-neutral-900 to-slate-900 bg-clip-text text-transparent dark:from-neutral-100 dark:to-slate-100">
               Create Account
             </CardTitle>
-            <CardDescription className={`${mounted && theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+            <CardDescription className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
               Join us and start your journey today
             </CardDescription>
           </CardHeader>
@@ -122,7 +113,7 @@ export default function SignUpPage() {
           <CardContent className="space-y-4">
             {error && (
               <div className={`p-3 text-sm border rounded-md ${
-                mounted && theme === 'dark' 
+                theme === 'dark' 
                   ? 'text-red-400 bg-red-900/20 border-red-800' 
                   : 'text-red-600 bg-red-50 border-red-200'
               }`}>
@@ -131,7 +122,7 @@ export default function SignUpPage() {
             )}
 
             <div className="space-y-2">
-              <label htmlFor="username" className={`text-sm font-medium ${mounted && theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
+              <label htmlFor="username" className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
                 Username
               </label>
               <div className="relative">
@@ -148,7 +139,7 @@ export default function SignUpPage() {
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="email" className={`text-sm font-medium ${mounted && theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
+              <label htmlFor="email" className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
                 Email
               </label>
               <div className="relative">
@@ -165,7 +156,7 @@ export default function SignUpPage() {
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="password" className={`text-sm font-medium ${mounted && theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
+              <label htmlFor="password" className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
                 Password
               </label>
               <div className="relative">
@@ -182,7 +173,7 @@ export default function SignUpPage() {
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className={`absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 ${
-                    mounted && theme === 'dark' ? 'hover:text-gray-300' : 'hover:text-gray-600'
+                    theme === 'dark' ? 'hover:text-gray-300' : 'hover:text-gray-600'
                   }`}
                 >
                   {showPassword ? (
@@ -197,17 +188,17 @@ export default function SignUpPage() {
             <Button
               onClick={handleSignUp}
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-2.5"
+              className="w-full bg-gradient-to-r from-neutral-900 to-slate-900 hover:from-neutral-950 hover:to-slate-950 text-white font-medium py-2.5 dark:from-neutral-700 dark:to-slate-700 dark:hover:from-neutral-800 dark:hover:to-slate-800"
             >
               {isLoading ? "Creating account..." : "Create account"}
             </Button>
 
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <span className={`w-full border-t ${mounted && theme === 'dark' ? 'border-gray-600' : 'border-gray-300'}`} />
+                <span className={`w-full border-t ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'}`} />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className={`px-2 ${mounted && theme === 'dark' ? 'bg-slate-800 text-gray-400' : 'bg-white text-gray-500'}`}>
+                <span className={`px-2 ${theme === 'dark' ? 'bg-neutral-900 text-gray-400' : 'bg-neutral-100 text-gray-500'}`}>
                   Or continue with
                 </span>
               </div>
@@ -251,12 +242,12 @@ export default function SignUpPage() {
               </Button>
             </div>
 
-            <div className={`text-center text-sm ${mounted && theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+            <div className={`text-center text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
               Already have an account?{" "}
               <Link href="/login" className={`font-medium transition-colors ${
-                mounted && theme === 'dark' 
-                  ? 'text-blue-400 hover:text-blue-300' 
-                  : 'text-blue-600 hover:text-blue-500'
+                theme === 'dark' 
+                  ? 'text-neutral-300 hover:text-neutral-200' 
+                  : 'text-neutral-700 hover:text-neutral-600'
               }`}>
                 Sign in
               </Link>

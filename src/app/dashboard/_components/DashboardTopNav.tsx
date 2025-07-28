@@ -10,10 +10,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-// import { UserProfile } from "@/components/user-profile";
-// import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+
 import { Banknote, Folder, HomeIcon, Menu, Settings } from "lucide-react";
-import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { ReactNode } from "react";
 
@@ -73,7 +71,6 @@ export default function DashboardTopNav({ children }: { children: ReactNode }) {
         </Dialog>
         <div className="flex justify-center items-center gap-2 ml-auto">
           <ToggleMenu />
-          <UserButton />
         </div>
       </header>
       {children}

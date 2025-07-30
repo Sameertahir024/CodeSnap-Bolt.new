@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import DashboardSideBar from "./_components/DashboardSideBar";
 import DashboardTopNav from "./_components/DashboardTopNav";
+import Navbar from "@/components/landing/Navbar";
 
 export default async function DashboardLayout({
   children,
@@ -8,11 +9,9 @@ export default async function DashboardLayout({
   children: ReactNode;
 }) {
   return (
-    <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
-      <DashboardSideBar />
-      <DashboardTopNav>
-      <main className="flex flex-col gap-4 p-4 lg:gap-6">{children}</main>
-      </DashboardTopNav>
-    </div>
+    <div>
+    {/* <Navbar/> */}
+      <main className="">{children}</main>
+      </div>
   );
 }

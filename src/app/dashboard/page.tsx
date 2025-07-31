@@ -9,6 +9,8 @@ import { toast } from 'sonner';
 import TokenCounter from './_components/TokenCounter';
 import { loadStripe } from '@stripe/stripe-js';
 import { createClient } from '@/lib/supabase/browserClient';
+import { Textarea } from "@/components/ui/textarea"
+import { Sparkles } from "lucide-react"
 
 export default function AIDetector() {
   const [text, setText] = useState('');
@@ -131,14 +133,14 @@ export default function AIDetector() {
             <div className="space-y-2">
               <h4 className="font-medium">Option 1: Token Pack</h4>
               <p className="text-sm text-muted-foreground">
-                Get 5 more tokens for $5 (one-time purchase)
+                Get 5 more tokens for $1.99 (one-time purchase)
               </p>
             </div>
 
             <div className="space-y-2">
               <h4 className="font-medium">Option 2: Unlimited Subscription</h4>
               <p className="text-sm text-muted-foreground">
-                Unlimited access for $10/month (cancel anytime)
+                Unlimited access for $20/month (cancel anytime)
               </p>
             </div>
           </div>
@@ -162,34 +164,98 @@ export default function AIDetector() {
       </Dialog>
 
       {/* Main Content */}
-      <div className='flex flex-wrap gap-2'>
-      
-        
-        <Card className="@container/card">
-          <CardHeader>
-            <CardDescription>Confidence</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-              {result?.confidence || '--'}
-            </CardTitle>
-          </CardHeader>
-          <CardFooter className="flex-col items-start gap-1.5 text-sm">
-            <div className="text-muted-foreground">Detection confidence level</div>
-          </CardFooter>
-        </Card>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+  {[
+    {
+      label: 'Confidence',
+      value: result?.confidence || '--',
+      description: 'Detection confidence level',
+    },
+    {
+      label: 'Language',
+      value: result?.language || '--',
+      description: 'Detection language',
+    },
+    {
+      label: 'Predicted Class',
+      value: result?.predicted_class || '--',
+      description: 'Final prediction: AI, Human, or Mixed',
+    },
+    {
+      label: 'AI Probability',
+      value: result?.probabilities.ai || '--',
+      description: 'Probability that this was AI-written',
+    },
+    {
+      label: 'Human Probability',
+      value: result?.probabilities.human || '--',
+      description: 'Probability that this was Human-written',
+    },
+    {
+      label: 'Mixed Probability',
+      value: result?.probabilities.mix || '--',
+      description: 'Probability that it was partly AI + Human',
+    },
+  ].map((item, index) => (
+    <Card key={index} className="rounded-2xl shadow-md hover:shadow-xl transition duration-300 border border-gray-200 dark:border-gray-700">
+      <CardHeader>
+        <CardDescription className="text-gray-500 dark:text-gray-400">{item.label}</CardDescription>
+        <CardTitle className="text-xl font-bold uppercase  tabular-nums">
+          {item.value}
+        </CardTitle>
+      </CardHeader>
+      <CardFooter className="flex-col items-start gap-1.5 text-sm">
+        <div className="text-muted-foreground">{item.description}</div>
+      </CardFooter>
+    </Card>
+  ))}
+</div>
 
-        {/* Other cards remain the same */}
-        {/* ... */}
-      </div>
         
-      <h1 className="text-2xl font-bold">🧠 AI Content Detector</h1>
-      
-      <textarea
-        rows={10}
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="Paste or type text to check if it's AI-generated..."
-        className="w-full border rounded p-3 text-sm"
-      />
+      {/* Attractive Header */}
+      <div className="flex items-center gap-3 group">
+        <Sparkles className="h-8 w-8 text-primary fill-current transition-transform group-hover:rotate-12" />
+        <h1 className="text-6xl  font-bold bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent leading-none">
+          AI Content Detector
+        </h1>
+        <span className="ml-2 px-2 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+          Beta
+        </span>
+      </div>
+
+      {/* Enhanced Text Area */}
+      <div className="relative">
+        <Textarea
+          rows={10}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Paste or type text to analyze for AI-generated content..."
+          className="w-full p-6 text-base border-2 rounded-xl shadow-sm hover:border-primary/30 focus-visible:ring-2 focus-visible:ring-primary/50 transition-colors duration-200 min-h-[200px]"
+        />
+        <div className="absolute bottom-4 right-4 flex items-center gap-2">
+          <span className="text-sm text-muted-foreground">
+            {text.length}/2000
+          </span>
+          <button onClick={() => setText('')} className="text-sm text-primary hover:underline">
+            Clear
+          </button>
+        </div>
+      </div>
+
+      {/* Character Counter (appears when typing) */}
+      {text.length > 0 && (
+        <div className="flex justify-between items-center text-sm text-muted-foreground">
+          <span>Minimum 50 characters recommended</span>
+          <span>
+            {text.length >= 50 ? (
+              <span className="text-green-500">✓ Ready to analyze</span>
+            ) : (
+              <span className="text-orange-500">More text needed</span>
+            )}
+          </span>
+        </div>
+      )}
+
 
       <Button
         onClick={detectContent}
@@ -202,12 +268,12 @@ export default function AIDetector() {
 
       {error && <p className="text-red-500">{error}</p>}
 
-      {result && (
+      {/* {result && (
         <div className="mt-6 p-4 border rounded">
           <h2 className="text-lg font-semibold mb-2">Detailed Analysis</h2>
           <pre className="text-sm whitespace-pre-wrap">{JSON.stringify(result, null, 2)}</pre>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

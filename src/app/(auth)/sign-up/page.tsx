@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Eye, EyeOff, Mail, Lock, Github, User, ArrowLeft } from "lucide-react";
 import { useTheme } from "next-themes";
+import { toast } from "sonner";
 
 export default function SignUpPage() {
   const supabase = createClient();
@@ -22,40 +23,73 @@ export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSignUp = async () => {
-    if (!username || !email || !password) {
-      setError("Please fill in all fields");
-      return;
-    }
+ // Update the handleSignUp function in your signup page:
+const handleSignUp = async () => {
+  if (!username || !email || !password) {
+    setError("Please fill in all fields");
+    return;
+  }
 
-    setIsLoading(true);
-    setError("");
+  setIsLoading(true);
+  setError("");
 
-    const { error: signUpError } = await supabase.auth.signUp({
+  try {
+    // 1. Create the auth user
+    const { data: { user }, error: signUpError } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        data: {
-          full_name: username,
-        },
-      },
+        data: { full_name: username },
+        emailRedirectTo: `${window.location.origin}/auth/callback`
+      }
     });
 
-    if (signUpError) {
-      setError(`Sign up failed: ${signUpError.message}`);
-    } else {
-      router.push("/dashboard");
-    }
-    
-    setIsLoading(false);
-  };
+    if (signUpError) throw signUpError;
 
-  const signUpWithProvider = async (provider: "google" | "github") => {
-    setIsLoading(true);
-    setError("");
-    await supabase.auth.signInWithOAuth({ provider });
+    // 2. For immediate signups (without email confirmation), initialize tokens
+    if (user) {
+      await supabase
+        .from("users")
+        .insert([{
+          id: user.id,
+          email: user.email,
+          full_name: username,
+          token_balance: 5,
+          subscription_tier: "basic"
+        }]);
+    }
+
+    toast.success("Account created! Check your email to confirm.");
+    router.push("/verify-email"); // Create this page if needed
+
+  } catch (error: any) {
+    setError(error.message || "Sign up failed");
+    console.error("Signup error:", error);
+  } finally {
     setIsLoading(false);
-  };
+  }
+};
+
+// Update OAuth providers:
+const signUpWithProvider = async (provider: "google" | "github") => {
+  setIsLoading(true);
+  setError("");
+  
+  try {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`
+      }
+    });
+
+    if (error) throw error;
+  } catch (error: any) {
+    setError(error.message || `${provider} sign in failed`);
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   const getBackgroundClass = () => {
     return `min-h-screen bg-gradient-to-br flex items-center justify-center p-4 ${

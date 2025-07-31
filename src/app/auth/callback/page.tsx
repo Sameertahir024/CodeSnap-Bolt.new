@@ -1,8 +1,9 @@
+// app/auth/callback/page.tsx
 "use client";
-
 import { createClient } from "@/lib/supabase/browserClient";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function AuthCallback() {
   const router = useRouter();
@@ -11,24 +12,42 @@ export default function AuthCallback() {
   useEffect(() => {
     const handleCallback = async () => {
       try {
-        const { data, error } = await supabase.auth.getSession();
+        // 1. Get the current session
+        const { data: { session }, error } = await supabase.auth.getSession();
         
-        if (error) {
-          console.error("Error getting session:", error);
-          router.push("/login?error=auth_failed");
-          return;
+        if (error || !session) {
+          throw error || new Error("No session found");
+        }
+console.log("callback data" , session)
+        // 2. Check if user already exists in your users table
+        const { data: existingUser } = await supabase
+          .from("users")
+          .select("id")
+          .eq("id", session.user.id)
+          .single();
+console.log("exist user " , existingUser)
+        // 3. If new user, initialize with 5 tokens
+        if (!existingUser) {
+          const { error: dbError } = await supabase
+            .from("users")
+            .insert([{
+              id: session.user.id,
+              email: session.user.email,
+              token_balance: 5,
+              subscription_tier: "basic"
+            }]);
+
+          if (dbError) throw dbError;
+          
+          toast.success("Welcome! You've received 5 free tokens.");
         }
 
-        if (data.session) {
-          console.log("Authentication successful, redirecting to dashboard");
-          router.push("/dashboard");
-        } else {
-          console.log("No session found, redirecting to login");
-          router.push("/login");
-        }
+        // 4. Redirect to dashboard
+        router.push("/dashboard");
+
       } catch (error) {
-        console.error("Unexpected error:", error);
-        router.push("/login?error=unexpected_error");
+        console.error("Auth callback error:", error);
+        router.push("/login?error=auth_failed");
       }
     };
 
@@ -43,4 +62,4 @@ export default function AuthCallback() {
       </div>
     </div>
   );
-} 
+}

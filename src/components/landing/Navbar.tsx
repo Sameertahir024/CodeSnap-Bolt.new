@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import ToggleMenu from "./ToggleMenu";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { LayoutGrid, LogOut, User, ChevronDown } from "lucide-react";
+import { LayoutGrid, LogOut, User, ChevronDown, CircleDollarSign } from "lucide-react";
 import { useAuth } from "@/lib/hooks/useAuth";
 import {
   DropdownMenu,
@@ -15,6 +15,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import TokenCounter from "@/app/dashboard/_components/TokenCounter";
 
 const Navbar = () => {
   const { user, loading, signOut, isAuthenticated } = useAuth();
@@ -30,8 +31,11 @@ const Navbar = () => {
   return (
     <div className=" ">
       <div className="w-full flex items-center fixed justify-between p-2 border-b z-10 dark:bg-black  bg-white">
-        <LayoutGrid />
+        <Link href="/">
+          <LayoutGrid />
+        </Link>
         <div className="flex items-center gap-2">
+          <TokenCounter/>
           <ToggleMenu />
           
           {!loading && (

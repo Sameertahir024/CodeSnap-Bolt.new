@@ -1,3 +1,5 @@
+'use client';
+
 import React from "react";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,6 +11,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { createClient } from '@/lib/supabase/browserClient';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 interface PricingCardProps {
   title: string;
@@ -25,6 +30,41 @@ const PricingCard = ({
   features,
   isPopular = false,
 }: PricingCardProps) => {
+  const supabase = createClient();
+  const router = useRouter();
+
+  const handlePurchase = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast.error('Please log in to make a purchase');
+        router.push('/login');
+        return;
+      }
+
+      // Determine which endpoint to call based on the plan
+      const endpoint = title === 'Token Pack' 
+        ? '/api/payment/pack' 
+        : '/api/payment/subscribe';
+
+      const { url } = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          userId: user.id, 
+          email: user.email 
+        }),
+      }).then(res => res.json());
+
+      window.location.href = url;
+      
+    } catch (error) {
+      toast.error('Failed to initiate payment');
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <Card
@@ -43,7 +83,7 @@ const PricingCard = ({
           </div>
           <CardDescription className="text-xl font-semibold mt-2">
             <span className="text-4xl">{price}</span>
-            {price !== "Custom" && (
+            {title === 'Unlimited' && (
               <span className="text-sm font-normal">/month</span>
             )}
           </CardDescription>
@@ -63,8 +103,9 @@ const PricingCard = ({
           <Button
             className="w-full"
             variant={isPopular ? "default" : "outline"}
+            onClick={handlePurchase}
           >
-            Get Started
+            {title === 'Basic' ? 'Get Started' : 'Purchase Now'}
           </Button>
         </CardFooter>
       </Card>

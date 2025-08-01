@@ -4,53 +4,50 @@ export default function PricingSection() {
   const pricingPlans = [
     {
       title: "Basic",
-      price: "$9",
-      description: "Perfect for individuals and small teams",
+      price: "Free",
+      description: "Get started with 5 free tokens after registration",
       features: [
-        "Up to 5 users",
-        "Basic analytics",
-        "24/7 support",
-        "1GB storage",
+        "5 tokens on signup",
+        "Basic features access",
+        "Email support",
+        "Limited usage",
       ],
     },
     {
-      title: "Pro",
-      price: "$29",
-      description: "Ideal for growing businesses",
+      title: "Token Pack",
+      price: "$1.99",
+      description: "Purchase additional tokens when you need them",
       features: [
-        "Up to 20 users",
-        "Advanced analytics",
-        "Priority support",
-        "10GB storage",
-        "Custom integrations",
+        "5 tokens per purchase",
+        "No expiration",
+        "Pay per use",
+        "Priority email support",
       ],
       isPopular: true,
     },
     {
-      title: "Enterprise",
-      price: "Custom",
-      description: "For large-scale organizations",
+      title: "Unlimited",
+      price: "$9.99",
+      description: "Unrestricted access for power users",
       features: [
-        "Unlimited users",
-        "Enterprise-grade security",
-        "Dedicated account manager",
-        "Unlimited storage",
-        "Custom development",
+        "Unlimited tokens",
+        "All premium features",
+        "24/7 priority support",
+        "Advanced analytics",
+        "Cancel anytime",
       ],
     },
   ];
 
   return (
-    <section className=" px-4 my-32">
+    <section className="px-4 my-32">
       <div className="container mx-auto">
         <div className="text-center space-y-1 mb-11">
-          <h2 className="text-3xl font-bold ">
-            Simple pricing for advanced people
+          <h2 className="text-3xl font-bold">
+            Flexible Token Pricing
           </h2>
           <p className="text-sm">
-            Our pricing is designed for advanced people who need more features{" "}
-            <br />
-            and more flexibility.
+            Choose the plan that fits your needs - from free trial to unlimited access
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-32">

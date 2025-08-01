@@ -21,14 +21,14 @@ export default function Hero() {
         text-center text-3xl font-semibold tracking-tight 
          md:text-7xl "
         >
-          Build your dream website in seconds – effortless.
+          Detect AI-written content in seconds – effortlessly.
         </h1>
         <p
           className="relative z-20 mx-auto mt-4 max-w-lg px-4 text-center text-base/6
         text-gray-600 dark:text-gray-200"
         >
-          Transform your ideas into reality with our cutting-edge platform.
-          Designed for innovators, built for the future.
+          Uncover the truth behind content with our AI-powered detector.
+          Designed for accuracy, built for trust.
         </p>
         <div
           className="mb-3 mt-8 flex w-full flex-col items-center justify-center gap-4

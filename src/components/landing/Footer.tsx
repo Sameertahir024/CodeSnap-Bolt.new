@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-3">
             <div className="flex items-center gap-2 mb-3">
               <LayoutGrid className="h-6 w-6" />
-              <span className="text-base font-semibold">CodeSanp</span>
+              <span className="text-base font-semibold">TruthAI</span>
             </div>
             <p className="text-sm text-gray-400">
               © copyright Startup 2024. All rights reserved.
@@ -136,7 +136,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="text-center opacity-30 pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-clap font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
-          CodeSpan
+        TruthAI
         </div>
       </div>
     </footer>

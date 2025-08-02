@@ -6,11 +6,12 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
-import TokenCounter from './_components/TokenCounter';
 import { loadStripe } from '@stripe/stripe-js';
 import { createClient } from '@/lib/supabase/browserClient';
 import { Textarea } from "@/components/ui/textarea"
 import { Sparkles } from "lucide-react"
+import PdfToText from "react-pdftotext";
+import { useToken } from '@/contexts/TokenContext';
 
 export default function AIDetector() {
   const [text, setText] = useState('');
@@ -20,6 +21,7 @@ export default function AIDetector() {
   const [paymentDialogOpen, setPaymentDialogOpen] = useState(false);
   const searchParams = useSearchParams();
   const supabase = createClient();
+  const { refreshTokens } = useToken();
 
   // Handle payment success/cancel toasts
   useEffect(() => {
@@ -30,6 +32,19 @@ export default function AIDetector() {
     }
   }, [searchParams]);
 
+  const handlePdfUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const text = await PdfToText(file);
+      setText(text);
+      setError("");
+    } catch (err) {
+      console.error("PDF extraction error:", err);
+      setError("Failed to extract text from PDF.");
+    }
+  };
   const handlePaymentChoice = async (choice: 'pack' | 'subscribe') => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
@@ -106,6 +121,7 @@ export default function AIDetector() {
       const response = await axios.request(options);
       setResult(response.data);
       toast.success('Analysis complete!');
+      await refreshTokens();
 
     } catch (err: any) {
       const errorMsg = err.response?.data?.message || 'Failed to detect content';
@@ -232,6 +248,7 @@ export default function AIDetector() {
           placeholder="Paste or type text to analyze for AI-generated content..."
           className="w-full p-6 text-base border-2 rounded-xl shadow-sm hover:border-primary/30 focus-visible:ring-2 focus-visible:ring-primary/50 transition-colors duration-200 min-h-[200px]"
         />
+
         <div className="absolute bottom-4 right-4 flex items-center gap-2">
           <span className="text-sm text-muted-foreground">
             {text.length}/2000
@@ -239,6 +256,12 @@ export default function AIDetector() {
           <button onClick={() => setText('')} className="text-sm text-primary hover:underline">
             Clear
           </button>
+          <input
+        type="file"
+        accept="application/pdf"
+        onChange={handlePdfUpload}
+        className="border rounded px-3 py-2"
+      />
         </div>
       </div>
 

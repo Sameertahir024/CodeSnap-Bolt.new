@@ -1,17 +1,16 @@
-import { ReactNode } from "react";
-import DashboardSideBar from "./_components/DashboardSideBar";
-import DashboardTopNav from "./_components/DashboardTopNav";
-import Navbar from "@/components/landing/Navbar";
+// src/app/dashboard/layout.tsx
+import Navbar from '@/components/landing/Navbar';
+import { TokenProvider } from '@/contexts/TokenContext';
 
-export default async function DashboardLayout({
+export default function DashboardLayout({
   children,
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
 }) {
   return (
-    <div>
-    <Navbar/>
-      <main className="">{children}</main>
-      </div>
+    <TokenProvider>
+      <Navbar />
+      <main>{children}</main>
+    </TokenProvider>
   );
 }

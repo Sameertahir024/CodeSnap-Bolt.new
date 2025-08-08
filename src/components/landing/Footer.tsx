@@ -43,7 +43,7 @@ export default function Footer() {
                 href="/contact"
                 className="text-sm text-gray-400 hover:text-white transition-colors"
               >
-                Contact
+                Contacts
               </Link>
               <Link
                 href="/blog"

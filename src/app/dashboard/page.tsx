@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Card, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -12,6 +12,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { Sparkles } from "lucide-react"
 import PdfToText from "react-pdftotext";
 import { useToken } from '@/contexts/TokenContext';
+import { Upload } from "lucide-react";
+
 
 export default function AIDetector() {
   const [text, setText] = useState('');
@@ -22,6 +24,8 @@ export default function AIDetector() {
   const searchParams = useSearchParams();
   const supabase = createClient();
   const { refreshTokens } = useToken();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
 
   // Handle payment success/cancel toasts
   useEffect(() => {
@@ -32,6 +36,9 @@ export default function AIDetector() {
     }
   }, [searchParams]);
 
+  const handleButtonClick = () => {
+    fileInputRef.current?.click();
+  };
   const handlePdfUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -256,12 +263,26 @@ export default function AIDetector() {
           <button onClick={() => setText('')} className="text-sm text-primary hover:underline">
             Clear
           </button>
-          <input
-        type="file"
-        accept="application/pdf"
-        onChange={handlePdfUpload}
-        className="border rounded px-3 py-2"
-      />
+          <div className="relative">
+    {/* Hidden file input */}
+    <input
+      type="file"
+      accept="application/pdf"
+      onChange={handlePdfUpload}
+      ref={fileInputRef}
+      className="hidden"
+    />
+    
+    {/* Styled upload button */}
+    <button
+      type="button"
+      onClick={handleButtonClick}
+      className="flex items-center gap-2 border rounded-lg px-4 py-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+    >
+      <Upload className="w-5 h-5" />
+      {/* <span>Upload PDF</span> */}
+    </button>
+  </div>
         </div>
       </div>
 

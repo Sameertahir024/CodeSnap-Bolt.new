@@ -20,10 +20,6 @@ export async function POST(request: Request) {
   .eq('id', userId)
   .single();
 
-
-    console.log("this is", error)
-    console.log("this is", user)
-
   // Unlimited users don't consume tokens
   if (user?.subscription_tier === 'unlimited') {
     return NextResponse.json({ success: true });

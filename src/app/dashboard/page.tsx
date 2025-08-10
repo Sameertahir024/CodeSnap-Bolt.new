@@ -54,6 +54,7 @@ export default function AIDetector() {
   };
   const handlePaymentChoice = async (choice: 'pack' | 'subscribe') => {
     try {
+      setLoading(true);
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
         toast.error('Please log in to make a payment');
@@ -76,6 +77,8 @@ export default function AIDetector() {
     } catch (error) {
       toast.error('Failed to initiate payment');
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -173,14 +176,16 @@ export default function AIDetector() {
               variant="outline"
               onClick={() => handlePaymentChoice('pack')}
               className="w-full"
+              disabled={loading}
             >
-              Buy Token Pack
+              {loading ? 'loading...' : 'Buy Token Pack'}
             </Button>
             <Button 
               onClick={() => handlePaymentChoice('subscribe')} 
               className="w-full"
+              disabled={loading}
             >
-              Subscribe
+              {loading ? 'loading...' : 'Subscribe'}
             </Button>
           </DialogFooter>
         </DialogContent>

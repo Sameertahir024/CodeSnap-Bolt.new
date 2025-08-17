@@ -12,6 +12,7 @@ export default function NotFound() {
   return (
     <div className="h-screen bg-gradient-to-br from-background via-background to-muted/20 relative overflow-hidden">
       {/* Background Glow Effects */}
+
       <Glow variant="top" className="opacity-30" />
       <Glow variant="bottom" className="opacity-20" />
       

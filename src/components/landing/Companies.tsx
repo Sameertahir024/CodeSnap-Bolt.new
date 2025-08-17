@@ -43,13 +43,16 @@ const ReviewCard = ({ img }: { img: string }) => {
       )}
     >
       <div className="flex flex-row  items-center gap-2">
-        <Image
-          className="rounded-full grayscale brightness-100 hover:grayscale-0 "
-          width={90}
-          height={50}
-          alt=""
-          src={img}
-        />
+      <Image
+  className="rounded-full grayscale brightness-100 hover:grayscale-0"
+  width={90}     
+  height={90}    
+  alt="Company logo"
+  src={img}
+  style={{
+    objectFit: "cover" 
+  }}
+/>
       </div>
     </figure>
   );

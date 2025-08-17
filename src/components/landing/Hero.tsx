@@ -23,6 +23,7 @@ export default function Hero() {
         >
           Detect AI-written content in seconds – effortlessly.
         </h1>
+        
         <p
           className="relative z-20 mx-auto mt-4 max-w-lg px-4 text-center text-base/6
         text-gray-600 dark:text-gray-200"

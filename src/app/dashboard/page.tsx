@@ -27,7 +27,6 @@ export default function AIDetector() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
 
-  // Handle payment success/cancel toasts
   useEffect(() => {
     if (searchParams.get('success') === 'true') {
       toast.success('Payment successful! Your tokens have been added.');
@@ -317,12 +316,12 @@ export default function AIDetector() {
 
       {error && <p className="text-red-500">{error}</p>}
 
-      {/* {result && (
+      {result && (
         <div className="mt-6 p-4 border rounded">
           <h2 className="text-lg font-semibold mb-2">Detailed Analysis</h2>
           <pre className="text-sm whitespace-pre-wrap">{JSON.stringify(result, null, 2)}</pre>
         </div>
-      )} */}
+      )}
     </div>
   );
 }

@@ -1,4 +1,3 @@
-// src/contexts/TokenContext.tsx
 'use client';
 
 import { createContext, useContext, useState, useEffect } from 'react';
@@ -43,6 +42,7 @@ export function TokenProvider({ children }: { children: React.ReactNode }) {
 
   // Initial load
   useEffect(() => {
+    console.log("first")
     refreshTokens();
   }, []);
 

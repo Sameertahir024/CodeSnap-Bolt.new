@@ -28,6 +28,7 @@ export default function AIDetector() {
 
 
   useEffect(() => {
+     refreshTokens();
     if (searchParams.get('success') === 'true') {
       toast.success('Payment successful! Your tokens have been added.');
     } else if (searchParams.get('canceled') === 'true') {

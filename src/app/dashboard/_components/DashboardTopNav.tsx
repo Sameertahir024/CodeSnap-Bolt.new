@@ -34,6 +34,7 @@ export default function DashboardTopNav({ children }: { children: ReactNode }) {
     if (typeof window !== "undefined") {
       await signOut();
       window.location.href = "/";
+      
     }
   };
 

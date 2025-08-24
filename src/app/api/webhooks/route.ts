@@ -39,14 +39,14 @@ export async function POST(request: Request) {
       if (paymentType === 'token_pack') {
         console.log("token pack is tunnong")
         await supabase.from('users')
-          .update({ token_balance: 1, subscription_tier: 'basic' })
+          .update({ token_balance: 5, subscription_tier: 'basic' })
           .eq('id', userId);
       } else if (paymentType === 'subscription') {
         console.log("subscription is tunnong")
         const customerId =
           typeof session.customer === 'string' ? session.customer : session.customer?.id;
         await supabase.from('users')
-          .update({ subscription_tier: 'unlimited', stripe_customer_id: customerId })
+          .update({ subscription_tier: 'unlimited',  stripe_customer_id: customerId })
           .eq('id', userId);
       }
       break;

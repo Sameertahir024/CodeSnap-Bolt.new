@@ -33,13 +33,13 @@ console.log("exist user " , existingUser)
             .insert([{
               id: session.user.id,
               email: session.user.email,
-              token_balance: 2,
+              token_balance: 5,
               subscription_tier: "basic"
             }]);
 
           if (dbError) throw dbError;
           
-          toast.success("Welcome! You've received 2 free tokens.");
+          toast.success("Welcome! You've received 5 free tokens.");
         }
 
         // 4. Redirect to dashboard
